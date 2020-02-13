@@ -109,7 +109,10 @@ func (m *Manager) BuildHandlers(rootCtx context.Context, entryPoints []string, t
 		entryPointHandlers[entryPointName] = handlerWithMiddlewares
 	}
 
-	m.serviceManager.LaunchHealthCheck()
+  // Only launch health check for http handler
+	if tls == false {
+		m.serviceManager.LaunchHealthCheck()
+	}
 
 	return entryPointHandlers
 }
